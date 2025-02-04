@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import { NoSsr } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import GrafanaDateRangePicker from './GrafanaDateRangePicker';
-import { ExpansionPanel, ExpansionPanelSummary } from '../../ExpansionPanels';
+//import { ExpansionPanel, ExpansionPanelSummary } from '../../ ExpansionPanels';
+import {
+  Accordion as ExpansionPanel,
+  AccordionSummary as ExpansionPanelSummary,
+} from '@mui/material';
 import GrafanaCustomChart from './GrafanaCustomChart';
 import {
   Grid,
-  ExpansionPanelDetails,
+  AccordionDetails as ExpansionPanelDetails,
   Typography,
   Dialog,
   Button,
@@ -17,7 +21,7 @@ import {
   Chip,
   styled,
   useTheme,
-} from '@layer5/sistent';
+} from '@mui/material';
 import { UsesSistent } from '@/components/SistentWrapper';
 
 const GrafanaRoot = styled('div')({
@@ -143,6 +147,8 @@ class GrafanaCustomCharts extends Component {
       sparkline,
     } = this.state;
     const { boardPanelConfigs, boardPanelData } = this.props;
+    console.log('boardPanelConfigs', boardPanelConfigs);
+    console.log('boardPanelData', boardPanelData);
     const { grafanaURL, grafanaAPIKey, prometheusURL, connectionID } = this.props;
     const { enableGrafanaChip } = this.props;
     // we are now proxying. . .
@@ -154,9 +160,10 @@ class GrafanaCustomCharts extends Component {
         <NoSsr>
           <React.Fragment>
             <GrafanaRoot>
-              {!(boardPanelData && boardPanelData !== null) && (
+              {/*<div> `I promise I won't fail now </div>*/}
+              {!true && (
                 <ChartsHeaderOptions>
-                  {enableGrafanaChip && <div>{this.GrafanaChip(grafanaURL)}</div>}
+                  {true && <div>{this.GrafanaChip('http://localhost:9090')}</div>}
                   <DateRangePickerContainer>
                     <GrafanaDateRangePicker
                       from={from}
@@ -170,7 +177,6 @@ class GrafanaCustomCharts extends Component {
                   </DateRangePickerContainer>
                 </ChartsHeaderOptions>
               )}
-
               <Dialog
                 fullWidth
                 maxWidth="md"
@@ -232,10 +238,10 @@ class GrafanaCustomCharts extends Component {
                   </Button>
                 </DialogActions>
               </Dialog>
-
               {boardPanelConfigs.map((config, ind) => (
                 // <ExpansionPanel defaultExpanded={ind === 0?true:false}>
                 <ExpansionPanel key={ind} square defaultExpanded={ind === 0}>
+                  {console.log('Trying to render the first panel')}
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Column>
                       <StyledHeading variant="subtitle1" gutterBottom>
@@ -259,9 +265,9 @@ class GrafanaCustomCharts extends Component {
                       {config.panels.map(
                         (panel, i) => (
                           // if(panel.type === 'graph'){
-
                           <Grid key={`grafana-chart-${i}`} item xs={12} lg={sparkline ? 12 : 6}>
-                            <GrafanaCustomChart
+                            {console.log('Getting the panel into the custom charts')}
+                            {/* <GrafanaCustomChart
                               connectionID={connectionID}
                               board={config}
                               sparkline={sparkline}
@@ -288,7 +294,8 @@ class GrafanaCustomCharts extends Component {
                                   ? boardPanelData[ind]
                                   : {}
                               }
-                            />
+                            /> */}
+                            <div> Here Goes some grafana chart.</div>
                           </Grid>
                         ),
                         // } else return '';

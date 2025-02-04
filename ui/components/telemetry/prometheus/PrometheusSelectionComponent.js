@@ -138,6 +138,7 @@ class PrometheusSelectionComponent extends Component {
   };
 
   boardChange = (newVal) => {
+    console.log('board change started ');
     this.props.updateProgress({ showProgress: true });
     const self = this;
     dataFetch(
@@ -149,12 +150,14 @@ class PrometheusSelectionComponent extends Component {
         body: newVal,
       },
       (result) => {
+        console.log('result came', result);
         this.props.updateProgress({ showProgress: false });
         var panels = result.panels.filter(
           (panel) =>
             panel.targets !== undefined &&
             panel.targets.some((target) => target.datasource.type.toLowerCase() === 'prometheus'),
         );
+        console.log('panel post request', panels);
         if (typeof result !== 'undefined') {
           this.setState({
             grafanaBoardObject: result,

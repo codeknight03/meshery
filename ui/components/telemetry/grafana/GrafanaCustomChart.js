@@ -259,12 +259,14 @@ const grafanaDateRangeToDate = (dt, startDate) => {
 
 class GrafanaCustomChart extends Component {
   constructor(props) {
+    console.log('Started the constructor for GrafanaCustomChart');
     super(props);
     this.chartRef = null;
     this.chart = null;
     this.timeFormat = 'MM/DD/YYYY HH:mm:ss';
     this.bbTimeFormat = '%Y-%m-%d %h:%M:%S %p';
     this.panelType = '';
+    console.log('Props received by GrafanaCustomChart', props);
     switch (props.panel.type) {
       case 'graph':
         this.panelType = props.panel.type;
@@ -296,6 +298,7 @@ class GrafanaCustomChart extends Component {
 
   configChartData = () => {
     const { panel, refresh, liveTail } = this.props;
+    console.log('props being used for data fetch', panel, refresh, liveTail);
     const self = this;
 
     if (panel.targets) {
@@ -332,7 +335,9 @@ class GrafanaCustomChart extends Component {
   }
 
   collectChartData = (chartInst) => {
+    console.log('I am going to collect chart data');
     const { panel } = this.props;
+    console.log('For panel:', panel);
     const self = this;
 
     if (panel.targets) {
@@ -406,6 +411,7 @@ class GrafanaCustomChart extends Component {
   };
 
   getData = async (ind, target, datasource) => {
+    console.log('I am going to collect data');
     const {
       prometheusURL,
       grafanaURL,
@@ -539,6 +545,7 @@ class GrafanaCustomChart extends Component {
       queryParams += `&url=${encodeURIComponent(endpointURL)}&api-key=${encodeURIComponent(
         endpointAPIKey,
       )}`;
+      console.log('I am making an API request here ', `${queryRangeURL}?${queryParams}`);
       dataFetch(
         `${queryRangeURL}?${queryParams}`,
         {
@@ -782,6 +789,7 @@ class GrafanaCustomChart extends Component {
 
   render() {
     const { board, panel, inDialog, handleChartDialogOpen, panelData } = this.props;
+    console.log('Props given to GrafanaCustomChart', this.props);
     const { error, errorCount, chartData } = this.state;
     const self = this;
 

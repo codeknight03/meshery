@@ -300,7 +300,7 @@ class PrometheusComponent extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    //const { classes } = this.props;
     const {
       urlError,
       prometheusURL,
@@ -308,6 +308,7 @@ class PrometheusComponent extends Component {
       selectedPrometheusBoardsConfigs,
       connectionID,
     } = this.state;
+    console.log('prometheusConfigSuccess', prometheusConfigSuccess);
     if (prometheusConfigSuccess) {
       let displaySelec = '';
       if (selectedPrometheusBoardsConfigs.length > 0) {
@@ -318,7 +319,10 @@ class PrometheusComponent extends Component {
               deleteSelectedBoardPanelConfig={this.deleteSelectedBoardPanelConfig}
             />
 
-            <Typography variant="h6" gutterBottom className={classes.chartTitle}>
+            <Typography
+              variant="h6"
+              gutterBottom //className={classes.chartTitle}
+            >
               Prometheus charts
             </Typography>
             {/* <GrafanaCharts
@@ -326,6 +330,7 @@ class PrometheusComponent extends Component {
                   prometheusURL={prometheusURL} /> */}
             <GrafanaCustomCharts
               boardPanelConfigs={selectedPrometheusBoardsConfigs}
+              boardPanelData={[]}
               prometheusURL={prometheusURL}
               connectionID={connectionID}
             />
